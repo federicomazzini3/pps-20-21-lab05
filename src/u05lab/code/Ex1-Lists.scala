@@ -132,12 +132,17 @@ trait ListImplementation[A] extends List[A] {
 
   override def partition(pred: A => Boolean): (List[A],List[A]) = {
 
+    /* first implementation
     def _partition(l:List[A], pred: A => Boolean)(l1:List[A] = List.nil, l2:List[A] = List.nil): (List[A], List[A])= l match {
+
       case h :: t if pred(h) => _partition(t, pred)(h :: l1, l2)
       case h :: t => _partition(t, pred)(l1, h :: l2)
       case _ => (l1.reverse(),l2.reverse())
     }
     _partition(this,pred)()
+    */
+
+    (this.filter(pred), this.filter(!pred(_)))
   }
 
   override def span(pred: A => Boolean): (List[A],List[A]) = ???
