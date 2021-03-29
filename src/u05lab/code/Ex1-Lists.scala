@@ -145,7 +145,13 @@ trait ListImplementation[A] extends List[A] {
     (this.filter(pred), this.filter(!pred(_)))
   }
 
-  override def span(pred: A => Boolean): (List[A],List[A]) = ???
+  override def span(pred: A => Boolean): (List[A],List[A]) = {
+    def _span(l:List[A], pred: A => Boolean)(l1:List[A] = List.nil): (List[A],List[A]) = l match{
+      case h :: t if pred(h) => _span(t,pred)(h :: l1)
+      case _ => (l1.reverse(), l)
+    }
+    _span(this,pred)()
+  }
 
   /**
     *
