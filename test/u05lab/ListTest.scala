@@ -22,9 +22,14 @@ class ListTest {
   @Test
   def testPartition(): Unit ={
     val l = List(10,20,11,21)
-
+    val l2 = List(0,-2,4,-5,-4,8)
     assertEquals((List(10,20), List(11,21)), l.partition(e =>  e % 2 == 0))
+    assertEquals((List(0,4,8), List(-2,-5,-4)), l2.partition(e =>  e >= 0))
   }
 
+  @Test
+  def testSpan: Unit ={
+    //va l = List
+  }
 
 }
