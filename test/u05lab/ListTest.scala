@@ -2,6 +2,7 @@ package u05lab.code
 
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions._
+import org.junit.jupiter.api.function.Executable
 
 class ListTest {
 
@@ -36,6 +37,14 @@ class ListTest {
     assertEquals((List(10,20), List(11,20)), l.span(e => e % 2 == 0))
     assertEquals((List(10,20), List.nil), l2.span(e => e % 2 == 0))
     assertEquals((List.nil, List(10, 20, 11, 20)), l.span(e => e % 2 != 0))
+  }
+
+  @Test
+  def testReduce: Unit = {
+    val l = List (10,20,30,40)
+    val l2 = List.nil[Int]
+    assertEquals(100, l.reduce(_+_))
+    assertThrows(classOf[UnsupportedOperationException], () => l2.reduce(_+_))
   }
 
 }
