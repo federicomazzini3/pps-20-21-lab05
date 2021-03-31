@@ -1,8 +1,7 @@
 package u05lab.code
 
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions._
-import org.junit.jupiter.api.function.Executable
+import org.junit.jupiter.api.{BeforeEach, Test}
 
 class ListTest {
 
@@ -45,6 +44,16 @@ class ListTest {
     val l2 = List.nil[Int]
     assertEquals(100, l.reduce(_+_))
     assertThrows(classOf[UnsupportedOperationException], () => l2.reduce(_+_))
+  }
+
+  @Test
+  def testTakeRight: Unit ={
+    val l = List(10,20,30)
+    val l2 = List.nil[Int]
+    assertEquals(List(20,30), l.takeRight(2))
+    assertEquals(List(10,20,30), l.takeRight(20))
+    assertThrows(classOf[UnsupportedOperationException], () => l.takeRight(-5))
+    assertEquals(List.nil[Int], l2.takeRight(2))
   }
 
 }

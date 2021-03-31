@@ -1,8 +1,6 @@
 package u05lab.code
 
-import java.lang
 
-import scala.annotation.tailrec
 import scala.language.postfixOps // silence warnings
 
 sealed trait List[A] {
@@ -117,7 +115,7 @@ trait ListImplementation[A] extends List[A] {
     case Nil() => Nil()
   }
 
-  // questions: what is the type of keyword ??? scala.predef
+  // questions: what is the type of keyword ??? -> scala.predef
 
   override def zipRight: List[(A,Int)] = {
     /*
@@ -164,7 +162,16 @@ trait ListImplementation[A] extends List[A] {
     case _ => throw new UnsupportedOperationException
   }
 
-  override def takeRight(n: Int): List[A] = ???
+  override def takeRight(n: Int): List[A] = {
+    def _takeRight(l:List[A], acc:List[A]=List.nil[A]) (n:Int): List[A] = l match{
+      case h :: t if n > 0 => _takeRight(t, h::acc)(n-1)
+      case _ if n == 0 => acc
+      case Nil() => acc
+      case _ => throw new UnsupportedOperationException
+    }
+    _takeRight(this.reverse())(n)
+  }
+
 }
 
 // Factories
