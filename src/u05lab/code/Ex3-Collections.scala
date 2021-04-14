@@ -27,10 +27,12 @@ object PerformanceUtils {
   def measure[T](expr: => T): MeasurementResults[T] = measure("")(expr)
 }
 
+object MyAlias{
+  type Map[A, +B] = scala.collection.immutable.Map[A, B]
+}
 
 object CollectionsTest extends App {
-  import scala.collection.mutable.Map
-
+  import MyAlias._
   val min = 1
   val max = 1000000
   val rand: Int = Random.between(min, max)
@@ -76,7 +78,7 @@ object CollectionsTest extends App {
   last += measure("set last"){list.last}
 
   /* Maps */
-  val map: scala.collection.Map[Int,Int] = (min to max).map(x => (x, x+1)).toMap
+  val map: Map[Int,Int] = (min to max).map(x => (x, x+1)).toMap
   //contains
   contains += measure("map contains"){map contains rand}
   //last
